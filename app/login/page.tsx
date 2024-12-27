@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
-import ClientPage from "./presentation/ClientPage";
+import LoginPageClient from "./presentation";
 import { cookies } from "next/headers";
 
-export default async function LoginPage() {
+export default async function LoginPageSSR() {
   const session = (await cookies()).get("__session-seek")?.value ?? null;
-  console.log(session)
+  // solo valido que exista la cookie de session
   if(session && session.length > 0)
     redirect("/");
-
+  
   return (
-      <ClientPage />
+      <LoginPageClient />
   );
 }

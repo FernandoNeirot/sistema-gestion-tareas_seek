@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import HomePage from "./(home)/presentation/page";
+import HomePage from "./(home)/presentation";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -9,10 +9,11 @@ export const metadata: Metadata = {
   description: "Reto de codificacion para SEEK",
 };
 
-export default async function Home() {
+export default async function HomePageSSR() {
   const session = (await cookies()).get("__session-seek")?.value ?? null;
   if(!session)
     redirect("/login");
+  
   return (
    <HomePage />
   );
