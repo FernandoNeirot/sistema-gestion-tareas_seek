@@ -9,26 +9,19 @@ import useLogin from "../application/useLogin";
 export default function ClientPage() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
-  const { isError, loading, data, login } = useLogin();
-  
-  const userData = window?.localStorage.getItem("user-sistema-tareas") ?? null;
+  const { isError, loading, login, isAuth } = useLogin();
 
   const handleLogin = async () => {
     login(user, pass);
   };
-
   useEffect(() => {
-    if (data) {
-      localStorage.setItem("user-sistema-tareas", JSON.stringify(data));
-      location.assign("/");
-    }
-  }, [data]);
-
-  if (userData) location.assign("/");
-
+    if(isAuth)
+      window.location.assign("/");
+  }, [isAuth])
+  
   return (
     <>
-      {!userData && (
+      {/* {!userData && ( */}
         <div className="relative flex flex-col items-center justify-center h-screen mx-5">
           <div className="relative w-full max-w-[400px] min-h-[200px] border-spacing-0 border border-blue-200 p-2 bg-blue-900">
             {loading && <Loading />}
@@ -60,7 +53,7 @@ export default function ClientPage() {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
     </>
   );
 }
