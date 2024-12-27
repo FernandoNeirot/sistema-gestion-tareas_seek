@@ -6,3 +6,9 @@ export interface IUser {
   password: string;
   gender: "female" | "male";
 }
+export interface ITask {
+  id: number;
+  title: string;
+  description: string;
+  status: "eliminada" | "pendiente" | "completada";
+}

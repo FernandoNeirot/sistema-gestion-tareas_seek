@@ -30,6 +30,7 @@ export const apiLogin = async ({
 interface IRandomUserAPI {
   gender: string;
 }
+
 export const apiMockDataUser = async ({
   gender,
 }: IRandomUserAPI): Promise<IResponseRandomUserAPI | IError> => {

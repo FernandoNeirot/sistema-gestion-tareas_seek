@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { useEffect, useState } from "react";
+import { IUser } from "./shared/_arquitecture/domain/interface";
+import { Header } from "./shared/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,21 +15,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Sistema gestion de tareas",
-  description: "Reto de codificacion para SEEK",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [userData, setUserData] = useState<IUser | null>(null);
+  useEffect(() => {
+    const user = localStorage.getItem("user-sistema-tareas");
+    if (typeof window !== "undefined" && user && location.pathname !== "/login") {
+      setUserData(JSON.parse(user));
+    }
+  }, []);
   return (
     <html lang="en">
-      <body className={`relative ${geistSans.variable} ${geistMono.variable} antialiased`} >
-        <main className="flex-grow min-h-screen">{children}</main>
-        <footer className=" fixed bottom-0 w-full text-center h-[40px]">Develop by Fernando Neirot</footer>
+      <body
+        className={`relative ${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {userData && <Header user={userData} />}
+        <main className="flex-grow" style={{minHeight:"calc(100vh - 130px)"}}>{children}</main>
+        <footer className="w-full text-center h-[40px]">
+          Develop by Fernando Neirot
+        </footer>
       </body>
     </html>
   );
