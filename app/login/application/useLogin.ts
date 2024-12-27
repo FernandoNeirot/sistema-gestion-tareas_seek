@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { postLogin } from "./postLogin";
-import { IUser } from "@/app/shared/_arquitecture/domain/interface";
+// import { IUser } from "@/app/shared/_arquitecture/domain/interface";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [data, setData] = useState<IUser | null>(null);
+  const [isAuth, setIsAuth] = useState(false)
 
   const login = async (user: string, pass: string) => {
     setIsError(false);
     setLoading(true);
     try {
-      const response = await postLogin(user, pass);
-
-      if (!response) setIsError(true);
-      else setData(response as IUser);
+      const response = await fetch("/api/auth", {
+        body: JSON.stringify({ user, pass }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }).then((res) => res.json());
+      if (!response || !response?.isAuth ) setIsError(true);
+      else setIsAuth(true);
     } catch {
       setIsError(true);
+      setIsAuth(false);
     }
     setLoading(false);
   };
@@ -24,7 +27,7 @@ const useLogin = () => {
   return {
     loading,
     isError,
-    data,
+    isAuth,
     login,
   };
 };

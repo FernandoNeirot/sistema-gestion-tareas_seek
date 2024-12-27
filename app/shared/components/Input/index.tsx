@@ -12,7 +12,7 @@ interface InputProps {
 const InputComponent = (data: InputProps) => {
   return (
     <input
-      className="text-black w-full p-2 my-2 border border-blue-500"
+      className="text-black w-full p-2 my-2 border border-blue-500 rounded-lg"
       {...data}
     />
   );
