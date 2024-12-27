@@ -11,7 +11,7 @@ export default function ClientPage() {
   const [pass, setPass] = useState("");
   const { isError, loading, data, login } = useLogin();
   
-  const userData = localStorage.getItem("user-sistema-tareas");
+  const userData = window?.localStorage.getItem("user-sistema-tareas") ?? null;
 
   const handleLogin = async () => {
     login(user, pass);
