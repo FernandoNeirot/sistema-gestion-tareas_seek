@@ -25,7 +25,7 @@ export const mockTaks: ITask[] = [
   {
     id: 1,
     title: "Tarea 1",
-    description: "Descripcion de la tarea sdfds sdfdsfsd dsfdfsdf sdfsdf sdfsdfd 1",
+    description: "Descripcion de la tarea 1",
     status: "pendiente",
   },
   {
@@ -48,7 +48,7 @@ export const mockTaks: ITask[] = [
   },
   {
     id: 5,
-    title: "Tarea 5",
+    title: "Tarea 5 ",
     description: "Descripcion de la tarea 5",
     status: "completada",
   },

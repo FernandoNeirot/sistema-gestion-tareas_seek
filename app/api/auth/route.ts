@@ -43,3 +43,25 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ isAuth: false,error: "Error de credenciales" });
   }
 }
+
+
+export async function GET() {
+  // Promise<ResponseJwt | ErrorLogin>
+  try {
+    
+    const session = (await cookies()).get("__session-seek")?.value ?? null;
+    let isAuth = false;
+    let userData = null;
+    if(session){
+      isAuth = true;
+      userData = JSON.parse(session);
+    }
+    return NextResponse.json({
+      isAuth: isAuth,
+      userData: userData,
+      error: null,
+    });
+  } catch {
+    return NextResponse.json({ isAuth: false, error: "Error de credenciales" });
+  }
+}
