@@ -10,5 +10,5 @@ export interface ITask {
   id: number;
   title: string;
   description: string;
-  status: "eliminada" | "pendiente" | "completada";
+  status: "eliminada" | "por hacer" | "en progreso" | "completada";
 }
