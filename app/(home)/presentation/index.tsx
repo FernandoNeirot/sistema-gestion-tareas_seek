@@ -67,9 +67,7 @@ export default function HomePageClient() {
   }
 
   return (
-    <TaskContext.Provider
-      value={{ reloadoData: HandleReloadoData }}
-    >
+    <TaskContext.Provider value={{ reloadoData: HandleReloadoData }}>
       <div className="flex flex-wrap gap-2 justify-center">
         {showAddTask && (
           <Modal title="Crear tarea" close={() => setShowAddTask(false)}>
@@ -77,10 +75,12 @@ export default function HomePageClient() {
           </Modal>
         )}
         <div className="flex justify-center w-full mt-5">
-          <ButtonComponent
-            text="Crear tarea"
-            onClick={() => setShowAddTask(true)}
-          />
+          {!showDelete && (
+            <ButtonComponent
+              text="Crear tarea"
+              onClick={() => setShowAddTask(true)}
+            />
+          )}
           <ButtonComponent
             text={`${showDelete ? "Ocultar" : "Ver"} Eliminadas`}
             background="bg-red-500"

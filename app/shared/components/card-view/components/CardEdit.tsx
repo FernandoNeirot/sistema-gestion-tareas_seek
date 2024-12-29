@@ -6,6 +6,7 @@ import TextareaComponent from "../../textarea";
 import SelectComponent from "../../select";
 import { patchTask } from "@/app/(home)/application/patchTask";
 import Loading from "../../loading";
+import { useTasks } from "@/app/(home)/presentation";
 
 interface IProps {
   task: ITask;
@@ -15,6 +16,7 @@ interface IProps {
 const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
   const [taskEdit, setTaskEdit] = useState<ITask>(task);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const value = useTasks();
   const getColor = (status: string) => {
     switch (status) {
       case "eliminada":
@@ -32,6 +34,7 @@ const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
     const response = await patchTask({ task: taskEdit }).finally(() => setIsLoading(false));
     if (response) {
       setIsEdit(false);
+      value?.reloadoData();
       setNewData(taskEdit);
     }
   };
