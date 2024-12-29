@@ -9,6 +9,6 @@ export const apiLoginNew = async ({user, pass}:ILoginProps) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   }).then((res) => res.json());
-  console.log(responde)
+
   return responde;
 }

@@ -16,7 +16,6 @@ export const apiTaskByUserId = async () => {
   try {
     const jwt = await getCookies("__session-seek");
     const userId = JSON.parse(jwt ?? "").id;
-    console.log(JSON.parse(jwt ?? ""));
     const array: any = [];
     const q = query(collection(db, "TASKS"), where("userId", "==", userId));
 
