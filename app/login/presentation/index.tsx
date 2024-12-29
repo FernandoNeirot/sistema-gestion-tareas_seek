@@ -22,7 +22,7 @@ export default function LoginPageClient() {
     <div className="relative flex flex-col items-center justify-center h-screen mx-5">
       <div className="relative w-full max-w-[400px] min-h-[200px] border-spacing-0 border border-blue-200 p-2 bg-blue-900">
         {loading && <Loading />}
-        <p className=" text-center p-5">Ingreso al sistema</p>
+        <p className=" text-center text-white p-5">Ingreso al sistema</p>
         <InputComponent
           name="name"
           value={user}
