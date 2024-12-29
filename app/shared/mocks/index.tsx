@@ -1,5 +1,5 @@
-import { ITask, IUser } from "../_arquitecture/domain/interface";
-
+import { IUser } from "../_arquitecture/domain/interface";
+// TODO: Queda pendiente pasarlo a firebase
 export const usersMock: IUser[] = [
   {
     id: 1,
@@ -14,48 +14,15 @@ export const usersMock: IUser[] = [
     gender: "male",
   },
   {
-    id: 2,
+    id: 3,
     user: "test03",
     password: "p12345",
     gender: "male",
   },
-];
-
-export const mockTaks: ITask[] = [
-  {
-    id: 1,
-    title: "Tarea 1",
-    description: "Descripcion de la tarea 1",
-    status: "por hacer",
-  },
-  {
-    id: 2,
-    title: "Tarea 2",
-    description: "Descripcion de la tarea 2",
-    status: "completada",
-  },
-  {
-    id: 3,
-    title: "Tarea 3",
-    description: "Descripcion de la tarea 3",
-    status: "eliminada",
-  },
   {
     id: 4,
-    title: "Tarea 4",
-    description: "Descripcion de la tarea 4",
-    status: "por hacer",
+    user: "test04",
+    password: "p12345",
+    gender: "female",
   },
-  {
-    id: 5,
-    title: "Tarea 5 ",
-    description: "Descripcion de la tarea 5",
-    status: "completada",
-  },
-  {
-    id: 6,
-    title: "Tarea 6",
-    description: "Descripcion de la tarea 6",
-    status: "eliminada",
-  }
 ];

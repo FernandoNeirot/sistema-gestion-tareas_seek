@@ -9,7 +9,6 @@ interface IProps {
   clickDelete: () => void;
 }
 const CardView = ({ task, clickEdit, clickDelete }: IProps) => {
-  console.log("hola")
   const getColor = (status: string) => {
     switch (status) {
       case "eliminada":

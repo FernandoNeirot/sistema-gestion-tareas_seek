@@ -7,8 +7,14 @@ export interface IUser {
   gender: "female" | "male";
 }
 export interface ITask {
-  id: number;
+  id?: string;
   title: string;
   description: string;
   status: "eliminada" | "por hacer" | "en progreso" | "completada";
+  userId: number;
+}
+
+export interface IResponseLogin {
+  isAuth: boolean
+  error: string | null
 }

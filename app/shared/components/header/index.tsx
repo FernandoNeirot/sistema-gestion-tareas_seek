@@ -1,19 +1,26 @@
+'use client'
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IUser } from "../../_arquitecture/domain/interface";
+import { getIsAuth } from "../../_arquitecture/application/getIsAuth";
+import { TbLogout } from "react-icons/tb";
+import { removeCookie } from "../../utils/cookies";
 
 export const Header = () => {
   const [userData, setUserData] = useState<IUser|null>(null);
   const [isAuth, setIsAuth] = useState(false);
 
   const getUserData = async () => {
-    const response = await fetch("/api/auth").then((res) => res.json());
-    console.log(response)
+    const response = await getIsAuth();
     if (response) {
-      setUserData(response.userData);
       setIsAuth(response.isAuth);
+      setUserData(response.userData);
     }
   };
+
+  const handleCloseSession = async() => {
+    await removeCookie("__session-seek").then(() => window.location.reload());
+  }
 
   useEffect(() => {
     getUserData();
@@ -36,6 +43,9 @@ export const Header = () => {
                 width={48}
                 height={48}
               />
+              <div className="ml-5 cursor-pointer" onClick={handleCloseSession}>
+                <TbLogout size={25}/>
+              </div>
             </div>
           </div>
         </header>

@@ -37,7 +37,6 @@ export async function POST(request: NextRequest) {
       secure: true,
       expires: oneYearFromNow,
     });
-    console.log("llego")
     return NextResponse.json({isAuth: true, error: null});
   } catch {
     return NextResponse.json({ isAuth: false,error: "Error de credenciales" });
@@ -56,6 +55,7 @@ export async function GET() {
       isAuth = true;
       userData = JSON.parse(session);
     }
+    console.log("api",userData)
     return NextResponse.json({
       isAuth: isAuth,
       userData: userData,

@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { ITask } from "../../../_arquitecture/domain/interface";
 import InputComponent from "../../Input";
 import ButtonComponent from "../../button";
 import TextareaComponent from "../../textarea";
 import SelectComponent from "../../select";
+import { patchTask } from "@/app/(home)/application/patchTask";
+import Loading from "../../loading";
+
 interface IProps {
   task: ITask;
   setNewData: React.Dispatch<React.SetStateAction<ITask>>;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
+  const [taskEdit, setTaskEdit] = useState<ITask>(task);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const getColor = (status: string) => {
     switch (status) {
       case "eliminada":
@@ -22,38 +27,51 @@ const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
         return "bg-blue-500";
     }
   };
+  const handleEditTask = async () => {
+    setIsLoading(true);
+    const response = await patchTask({ task: taskEdit }).finally(() => setIsLoading(false));
+    if (response) {
+      setIsEdit(false);
+      setNewData(taskEdit);
+    }
+  };
   return (
     <div
-      className="bg-blue-50 shadow-md rounded-lg p-4 m-4 min-h-[250px] w-[300px]"
-      key={task.id}
+      className="relative bg-blue-50 shadow-md rounded-lg p-4 m-4 min-h-[250px] w-[300px]"
+      key={taskEdit.id}
     >
+      {isLoading && (
+        <div className="absolute top-0 right-0 w-full h-full bg-white bg-opacity-10 z-10">
+          <Loading />
+        </div>
+      )}
       <div className="text-blue-900 border-b-4 font-semibold border-blue-900 mb-2">
         <InputComponent
           placeholder="Título"
-          value={task.title}
-          onChange={(e) => setNewData({ ...task, title: e.target.value })}
+          value={taskEdit.title}
+          onChange={(e) => setTaskEdit({ ...taskEdit, title: e.target.value })}
         />
       </div>
       <div className="flex flex-col justify-between">
         <div className="text-blue-600">
           <TextareaComponent
             placeholder="Descripción"
-            value={task.description}
+            value={taskEdit.description}
             onChange={(e) =>
-              setNewData({ ...task, description: e.target.value })
+              setTaskEdit({ ...taskEdit, description: e.target.value })
             }
           />
         </div>
         <div
           className={`text-white ${getColor(
-            task.status
+            taskEdit.status
           )} text-center py-1 rounded-lg`}
         >
           <SelectComponent
-            value={task.status}
+            value={taskEdit.status}
             onChange={(e) =>
-              setNewData({
-                ...task,
+              setTaskEdit({
+                ...taskEdit,
                 status: e.target.value as
                   | "eliminada"
                   | "por hacer"
@@ -62,7 +80,7 @@ const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
               })
             }
             options={
-              task.status === "eliminada"
+              taskEdit.status === "eliminada"
                 ? ["por hacer", "en progreso", "completada", "eliminada"]
                 : ["por hacer", "en progreso", "completada"]
             }
@@ -71,9 +89,16 @@ const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
       </div>
       <div className="flex justify-center mt-5">
         <ButtonComponent
+            isLoading={false}
+            text="Cancelar"
+            background="bg-gray-500"
+            onClick={()=>setIsEdit(false)}
+            className="mr-5"
+          />
+        <ButtonComponent
           isLoading={false}
           text="Guardar"
-          onClick={() => setIsEdit(false)}
+          onClick={handleEditTask}
         />
       </div>
     </div>

@@ -3,6 +3,8 @@ import { ITask } from "../../_arquitecture/domain/interface";
 import CardEdit from "./components/CardEdit";
 import CardModal from "./components/CardModal";
 import CardView from "./components/CardView";
+import Loading from "../loading";
+import { patchTask } from "@/app/(home)/application/patchTask";
 interface IProps {
   task: ITask;
 }
@@ -10,13 +12,28 @@ const Card = ({ task }: IProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const [newData, setNewData] = useState<ITask>(task);
   const [showAlertDetele, setShowAlertDetele] = useState<boolean>(false);
-
-  const handleDelete = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleDelete = async () => {
+    const taskDelete = { ...newData, status: "eliminada" } as ITask;
+    setIsLoading(true);
+    const response = await patchTask({
+      task: taskDelete,
+    }).finally(() => setIsLoading(false));
+    if (response) {
+      setIsEdit(false);
+      setNewData(taskDelete);
+    }
     setNewData({ ...newData, status: "eliminada" });
     setShowAlertDetele(false);
   };
+
   return (
     <>
+    {isLoading && (
+        <div className="absolute top-0 right-0 w-full h-full bg-white bg-opacity-10 z-10">
+          <Loading />
+        </div>
+      )}
       {showAlertDetele && (
         <CardModal
           close={() => setShowAlertDetele(false)}
