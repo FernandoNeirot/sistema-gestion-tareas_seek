@@ -26,7 +26,7 @@ export default function RootLayout({
       >
         <Header />
         <main className="flex-grow" style={{minHeight:"calc(100vh - 130px)"}}>{children}</main>
-        <footer className="w-full text-center h-[40px]">
+        <footer className="w-full text-center h-[40px] text-white">
           Develop by Fernando Neirot
         </footer>
       </body>
