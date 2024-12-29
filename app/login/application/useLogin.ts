@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiLoginNew } from "../infrastructure/user.api";
 // import { IUser } from "@/app/shared/_arquitecture/domain/interface";
 
 const useLogin = () => {
@@ -10,11 +11,7 @@ const useLogin = () => {
     setIsError(false);
     setLoading(true);
     try {
-      const response = await fetch("/api/auth", {
-        body: JSON.stringify({ user, pass }),
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      }).then((res) => res.json());
+      const response = await apiLoginNew({ user, pass });
       if (!response || !response?.isAuth ) setIsError(true);
       else setIsAuth(true);
     } catch {
