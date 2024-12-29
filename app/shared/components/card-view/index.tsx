@@ -18,6 +18,7 @@ const Card = ({ task }: IProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const handleDelete = async () => {    
     setIsLoading(true);
+    
     const response = await deleteTask({
       task: newData,
     }).finally(() => setIsLoading(false));
