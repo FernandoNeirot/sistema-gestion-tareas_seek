@@ -55,7 +55,7 @@ export async function GET() {
       isAuth = true;
       userData = JSON.parse(session);
     }
-    console.log("api",userData)
+
     return NextResponse.json({
       isAuth: isAuth,
       userData: userData,

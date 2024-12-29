@@ -6,6 +6,7 @@ import TextareaComponent from "../../textarea";
 import SelectComponent from "../../select";
 import { ITask } from "@/app/shared/_arquitecture/domain/interface";
 import { postTask } from "@/app/(home)/application/postTask";
+import { useTasks } from "@/app/(home)/presentation";
 interface IProps {
   setShowAddTask: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -17,11 +18,13 @@ const CardAdd = ({ setShowAddTask }: IProps) => {
     userId: 1,
   });
 
+  const value = useTasks();
+
   const handleAddTask = async() => {
     const response = await postTask({ task })
     if(response){
-      setShowAddTask(true);
-      window.location.reload();
+      setShowAddTask(false);
+      value?.reloadoData();
     }
   };
 

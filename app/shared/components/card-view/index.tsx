@@ -4,24 +4,25 @@ import CardEdit from "./components/CardEdit";
 import CardModal from "./components/CardModal";
 import CardView from "./components/CardView";
 import Loading from "../loading";
-import { patchTask } from "@/app/(home)/application/patchTask";
+import { deleteTask } from "@/app/(home)/application/deleteTask";
+import { useTasks } from "@/app/(home)/presentation";
 interface IProps {
   task: ITask;
 }
 const Card = ({ task }: IProps) => {
+  const value = useTasks();
+  
   const [isEdit, setIsEdit] = useState(false);
   const [newData, setNewData] = useState<ITask>(task);
   const [showAlertDetele, setShowAlertDetele] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
-  const handleDelete = async () => {
-    const taskDelete = { ...newData, status: "eliminada" } as ITask;
+  const handleDelete = async () => {    
     setIsLoading(true);
-    const response = await patchTask({
-      task: taskDelete,
+    const response = await deleteTask({
+      task: newData,
     }).finally(() => setIsLoading(false));
     if (response) {
-      setIsEdit(false);
-      setNewData(taskDelete);
+      value?.reloadoData();
     }
     setNewData({ ...newData, status: "eliminada" });
     setShowAlertDetele(false);
