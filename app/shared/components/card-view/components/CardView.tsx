@@ -1,6 +1,7 @@
 import React from "react";
 import { ITask } from "../../../_arquitecture/domain/interface";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { getColor } from "@/app/shared/_arquitecture/domain/functions";
 
 interface IProps {
   task: ITask;
@@ -9,18 +10,6 @@ interface IProps {
   clickDelete: () => void;
 }
 const CardView = ({ task, clickEdit, clickDelete }: IProps) => {
-  const getColor = (status: string) => {
-    switch (status) {
-      case "eliminada":
-        return "bg-red-600";
-      case "por hacer":
-        return "bg-yellow-600";
-      case "completada":
-        return "bg-green-600";
-      default:
-        return "bg-blue-500";
-    }
-  };
   return (
     <div
       className="z-0 relative bg-blue-50 shadow-md rounded-lg p-4 m-4 min-h-[250px] w-[300px] cursor-pointer"
@@ -34,7 +23,7 @@ const CardView = ({ task, clickEdit, clickDelete }: IProps) => {
         <h1 className="text-blue-900 border-b-4 font-semibold border-blue-900 mb-2">
           {task.title}
         </h1>
-        {task.status !== "eliminada" && (
+        {task.status !== "4 - eliminada" && (
           <div
             className="z-20 absolute top-[-15px] right-[-5px]"
             onClick={clickDelete}

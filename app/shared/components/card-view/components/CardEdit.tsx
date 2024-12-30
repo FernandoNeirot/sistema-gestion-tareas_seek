@@ -7,6 +7,7 @@ import SelectComponent from "../../select";
 import { patchTask } from "@/app/(home)/application/patchTask";
 import Loading from "../../loading";
 import { useTasks } from "@/app/(home)/presentation";
+import { getColor } from "@/app/shared/_arquitecture/domain/functions";
 
 interface IProps {
   task: ITask;
@@ -17,18 +18,7 @@ const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
   const [taskEdit, setTaskEdit] = useState<ITask>(task);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const value = useTasks();
-  const getColor = (status: string) => {
-    switch (status) {
-      case "eliminada":
-        return "bg-red-600";
-      case "por hacer":
-        return "bg-yellow-600";
-      case "completada":
-        return "bg-green-600";
-      default:
-        return "bg-blue-500";
-    }
-  };
+  
   const handleEditTask = async () => {
     setIsLoading(true);
     const response = await patchTask({ task: taskEdit }).finally(() => setIsLoading(false));
@@ -76,16 +66,16 @@ const CardEdit = ({ task, setNewData, setIsEdit }: IProps) => {
               setTaskEdit({
                 ...taskEdit,
                 status: e.target.value as
-                  | "eliminada"
-                  | "por hacer"
-                  | "en progreso"
-                  | "completada",
+                | "1 - por hacer"
+                | "2 - en progreso"
+                | "3 - completada"
+                | "4 - eliminada",
               })
             }
             options={
-              taskEdit.status === "eliminada"
-                ? ["por hacer", "en progreso", "completada", "eliminada"]
-                : ["por hacer", "en progreso", "completada"]
+              taskEdit.status === "4 - eliminada"
+                ? ["1 - por hacer", "2 - en progreso", "3 - completada", "4 - eliminada"]
+                : ["1 - por hacer", "2 - en progreso", "3 - completada"]
             }
           />
         </div>

@@ -25,7 +25,7 @@ const Card = ({ task }: IProps) => {
     if (response) {
       value?.reloadoData();
     }
-    setNewData({ ...newData, status: "eliminada" });
+    setNewData({ ...newData, status: "4 - eliminada" });
     setShowAlertDetele(false);
   };
 

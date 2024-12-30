@@ -7,6 +7,7 @@ import SelectComponent from "../../select";
 import { ITask } from "@/app/shared/_arquitecture/domain/interface";
 import { postTask } from "@/app/(home)/application/postTask";
 import { useTasks } from "@/app/(home)/presentation";
+import { getColor } from "@/app/shared/_arquitecture/domain/functions";
 interface IProps {
   setShowAddTask: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -14,7 +15,7 @@ const CardAdd = ({ setShowAddTask }: IProps) => {
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
-    status: "por hacer",
+    status: "1 - por hacer",
     userId: 1,
   });
 
@@ -25,19 +26,6 @@ const CardAdd = ({ setShowAddTask }: IProps) => {
     if(response){
       setShowAddTask(false);
       value?.reloadoData();
-    }
-  };
-
-  const getColor = (status: string) => {
-    switch (status) {
-      case "eliminada":
-        return "bg-red-600";
-      case "por hacer":
-        return "bg-yellow-600";
-      case "completada":
-        return "bg-green-600";
-      default:
-        return "bg-blue-500";
     }
   };
 
@@ -69,16 +57,16 @@ const CardAdd = ({ setShowAddTask }: IProps) => {
               setTask({
                 ...task,
                 status: e.target.value as
-                  | "eliminada"
-                  | "por hacer"
-                  | "en progreso"
-                  | "completada",
+                | "1 - por hacer"
+                | "2 - en progreso"
+                | "3 - completada"
+                | "4 - eliminada",
               })
             }
             options={
-              task.status === "eliminada"
-                ? ["por hacer", "en progreso", "completada", "eliminada"]
-                : ["por hacer", "en progreso", "completada"]
+              task.status === "4 - eliminada"
+                ? ["1 - por hacer", "2 - en progreso", "3 - completada", "4 - eliminada"]
+                : ["1 - por hacer", "2 - en progreso", "3 - completada"]
             }
           />
         </div>
