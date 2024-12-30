@@ -5,7 +5,7 @@ interface IProps {
   task: ITask;
 }
 export const deleteTask = async ({ task }: IProps) => {
-  const taskDelete = { ...task, status: "eliminada" } as ITask;
+  const taskDelete = { ...task, status: "4 - eliminada" } as ITask;
   const response = await updateDocFirebase("TASKS", taskDelete, taskDelete.id)
     .then(() => true)
     .catch(() => false);

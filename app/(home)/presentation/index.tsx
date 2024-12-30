@@ -30,9 +30,9 @@ export default function HomePageClient() {
     getTaskByUserId().then((res) => {
       setData(res);
       if (showDelete) {
-        setDataFilter(res.filter((task: ITask) => task.status === "eliminada"));
+        setDataFilter(res.filter((task: ITask) => task.status === "4 - eliminada"));
       } else {
-        setDataFilter(res.filter((task: ITask) => task.status !== "eliminada"));
+        setDataFilter(res.filter((task: ITask) => task.status !== "4 - eliminada"));
       }
       setLoading(false);
     });
@@ -41,7 +41,7 @@ export default function HomePageClient() {
   useEffect(() => {
     getTaskByUserId().then((res) => {
       setData(res);
-      setDataFilter(res.filter((task: ITask) => task.status !== "eliminada"));
+      setDataFilter(res.filter((task: ITask) => task.status !== "4 - eliminada"));
       setLoading(false);
     });
   }, []);
@@ -49,11 +49,11 @@ export default function HomePageClient() {
   useEffect(() => {
     if (showDelete) {
       setDataFilter(
-        data ? data.filter((task: ITask) => task.status === "eliminada") : null
+        data ? data.filter((task: ITask) => task.status === "4 - eliminada") : null
       );
     } else {
       setDataFilter(
-        data ? data.filter((task: ITask) => task.status !== "eliminada") : null
+        data ? data.filter((task: ITask) => task.status !== "4 - eliminada") : null
       );
     }
   }, [showDelete]);
@@ -88,9 +88,11 @@ export default function HomePageClient() {
             onClick={() => setShowDelete(!showDelete)}
           />
         </div>
-        {dataFilter?.map((task) => (
-          <Card task={task} key={task.id} />
-        ))}
+        {dataFilter
+          ?.sort((a: ITask, b: ITask) => a.status.localeCompare(b.status))
+          .map((task: ITask) => (
+            <Card task={task} key={task.id} />
+          ))}
       </div>
     </TaskContext.Provider>
   );

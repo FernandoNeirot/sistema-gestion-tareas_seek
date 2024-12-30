@@ -9,7 +9,7 @@ interface IProps {
 const SelectComponent = ({value, onChange, options}:IProps) => {
   return (
     <select
-      className=" text-blue-950 rounded-lg p-1"
+      className=" text-white rounded-lg p-1 bg-transparent border-b-2 border-white text-center"
       value={value}
       onChange={onChange}      
     >
