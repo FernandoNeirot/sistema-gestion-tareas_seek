@@ -2,11 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ITask } from "@/app/shared/_arquitecture/domain/interface";
 import { useEffect, useState, createContext, useContext } from "react";
-import Card from "@/app/shared/components/card-view";
+import Card from "@/app/shared/components/card";
 import { getTaskByUserId } from "../application/getTaskByUser";
 import ButtonComponent from "@/app/shared/components/button";
 import Modal from "@/app/shared/components/modal";
-import CardAdd from "@/app/shared/components/card-view/components/CardAdd";
+import CardAdd from "@/app/shared/components/card/components/CardAdd";
 import Loading from "@/app/shared/components/loading";
 
 interface ITaskContext {
@@ -30,9 +30,13 @@ export default function HomePageClient() {
     getTaskByUserId().then((res) => {
       setData(res);
       if (showDelete) {
-        setDataFilter(res.filter((task: ITask) => task.status === "4 - eliminada"));
+        setDataFilter(
+          res.filter((task: ITask) => task.status === "4 - eliminada")
+        );
       } else {
-        setDataFilter(res.filter((task: ITask) => task.status !== "4 - eliminada"));
+        setDataFilter(
+          res.filter((task: ITask) => task.status !== "4 - eliminada")
+        );
       }
       setLoading(false);
     });
@@ -41,7 +45,9 @@ export default function HomePageClient() {
   useEffect(() => {
     getTaskByUserId().then((res) => {
       setData(res);
-      setDataFilter(res.filter((task: ITask) => task.status !== "4 - eliminada"));
+      setDataFilter(
+        res.filter((task: ITask) => task.status !== "4 - eliminada")
+      );
       setLoading(false);
     });
   }, []);
@@ -49,14 +55,24 @@ export default function HomePageClient() {
   useEffect(() => {
     if (showDelete) {
       setDataFilter(
-        data ? data.filter((task: ITask) => task.status === "4 - eliminada") : null
+        data
+          ? data.filter((task: ITask) => task.status === "4 - eliminada")
+          : null
       );
     } else {
       setDataFilter(
-        data ? data.filter((task: ITask) => task.status !== "4 - eliminada") : null
+        data
+          ? data.filter((task: ITask) => task.status !== "4 - eliminada")
+          : null
       );
     }
   }, [showDelete]);
+
+  useEffect(() => {
+    if (data && !data.some((task: ITask) => task.status === "4 - eliminada")) {
+      setShowDelete(false);
+    }
+  }, [data]);
 
   if (loading) {
     return (
@@ -81,12 +97,14 @@ export default function HomePageClient() {
               onClick={() => setShowAddTask(true)}
             />
           )}
-          <ButtonComponent
-            text={`${showDelete ? "Ocultar" : "Ver"} Eliminadas`}
-            background="bg-red-500"
-            className="ml-2"
-            onClick={() => setShowDelete(!showDelete)}
-          />
+          {data?.some((task: ITask) => task.status === "4 - eliminada") && (
+            <ButtonComponent
+              text={`${showDelete ? "Ocultar" : "Ver"} Eliminadas`}
+              background="bg-red-500"
+              className="ml-2"
+              onClick={() => setShowDelete(!showDelete)}
+            />
+          )}
         </div>
         {dataFilter
           ?.sort((a: ITask, b: ITask) => a.status.localeCompare(b.status))

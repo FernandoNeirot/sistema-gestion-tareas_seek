@@ -2,7 +2,7 @@ import React from "react";
 import { ITask } from "../../../_arquitecture/domain/interface";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { getColor } from "@/app/shared/_arquitecture/domain/functions";
-
+import { FaRegEdit } from "react-icons/fa";
 interface IProps {
   task: ITask;
   // settask: React.Dispatch<React.SetStateAction<ITask>>;
@@ -23,6 +23,12 @@ const CardView = ({ task, clickEdit, clickDelete }: IProps) => {
         <h1 className="text-blue-900 border-b-4 font-semibold border-blue-900 mb-2">
           {task.title}
         </h1>
+        <div
+            className="z-20 absolute top-[-15px] right-[40px]"
+            onClick={clickEdit}
+          >
+            <FaRegEdit color="green" size={35} />
+          </div>
         {task.status !== "4 - eliminada" && (
           <div
             className="z-20 absolute top-[-15px] right-[-5px]"
