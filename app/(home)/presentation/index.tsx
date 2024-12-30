@@ -2,11 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ITask } from "@/app/shared/_arquitecture/domain/interface";
 import { useEffect, useState, createContext, useContext } from "react";
-import Card from "@/app/shared/components/card-view";
+import Card from "@/app/shared/components/card";
 import { getTaskByUserId } from "../application/getTaskByUser";
 import ButtonComponent from "@/app/shared/components/button";
 import Modal from "@/app/shared/components/modal";
-import CardAdd from "@/app/shared/components/card-view/components/CardAdd";
+import CardAdd from "@/app/shared/components/card/components/CardAdd";
 import Loading from "@/app/shared/components/loading";
 
 interface ITaskContext {

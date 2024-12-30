@@ -19,3 +19,8 @@ export interface IResponseLogin {
   isAuth: boolean
   error: string | null
 }
+
+export interface IError {
+  error: boolean;
+  description: string;
+}
