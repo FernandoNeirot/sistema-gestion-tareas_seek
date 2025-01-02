@@ -3,7 +3,7 @@
 
 Es un proyecto para la gestion de tareas con un login de acceso. <br>
 Cada usuario podra agregar sus tareas y seran persistidas en firebase. <br>
-cada tarea tendra 4 estas
+cada tarea tendra 4 estados
  - por hacer
  - en progreso
  - completada
