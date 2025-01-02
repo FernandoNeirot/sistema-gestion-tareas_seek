@@ -6,9 +6,9 @@ import TextareaComponent from "../../textarea";
 import SelectComponent from "../../select";
 import { patchTask } from "@/app/(home)/application/patchTask";
 import Loading from "../../loading";
-import { useTasks } from "@/app/(home)/presentation";
 import { getColor } from "@/app/shared/_arquitecture/domain/functions";
 import AlertComponent from "../../alert";
+import { useTasks } from "@/app/(home)/domain/Context.Task";
 
 
 interface IProps {

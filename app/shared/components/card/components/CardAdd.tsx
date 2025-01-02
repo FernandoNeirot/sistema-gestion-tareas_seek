@@ -6,9 +6,9 @@ import TextareaComponent from "../../textarea";
 import SelectComponent from "../../select";
 import { IError, ITask } from "@/app/shared/_arquitecture/domain/interface";
 import { postTask } from "@/app/(home)/application/postTask";
-import { useTasks } from "@/app/(home)/presentation";
 import { getColor } from "@/app/shared/_arquitecture/domain/functions";
 import AlertComponent from "../../alert";
+import { useTasks } from "@/app/(home)/domain/Context.Task";
 interface IProps {
   setShowAddTask: React.Dispatch<React.SetStateAction<boolean>>;
 }
