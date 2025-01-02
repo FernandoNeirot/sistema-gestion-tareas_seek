@@ -12,6 +12,31 @@ import {
 import { db } from "../../shared/utils/firebase";
 import { revalidatePath } from "next/cache";
 import { getCookies } from "@/app/shared/utils/cookies";
+
+interface IUser{
+  user: string;
+  pass: string;
+}
+
+export const apiLoginFirebase = async ({user,pass}:IUser) => {
+  try {    
+    const array: any = [];
+    const q = query(collection(db, "USERS"), where("user", "==", user.toLocaleLowerCase()), where("password", "==", pass));
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      data.id = doc.id;
+      array.push(data);
+    });
+    revalidatePath("/");
+    return array;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const apiTaskByUserId = async () => {
   try {
     const jwt = await getCookies("__session-seek");
