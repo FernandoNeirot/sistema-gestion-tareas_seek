@@ -1,23 +1,14 @@
 "use client";
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ITask } from "@/app/shared/_arquitecture/domain/interface";
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState } from "react";
 import Card from "@/app/shared/components/card";
 import { getTaskByUserId } from "../application/getTaskByUser";
 import ButtonComponent from "@/app/shared/components/button";
 import Modal from "@/app/shared/components/modal";
 import CardAdd from "@/app/shared/components/card/components/CardAdd";
 import Loading from "@/app/shared/components/loading";
-
-interface ITaskContext {
-  reloadoData: () => void;
-}
-
-const TaskContext = createContext<ITaskContext | null>(null);
-
-export function useTasks() {
-  return useContext(TaskContext);
-}
+import { TaskContext } from "../domain/Context.Task";
 
 export default function HomePageClient() {
   const [data, setData] = useState<ITask[] | null>(null);
@@ -83,7 +74,7 @@ export default function HomePageClient() {
   }
 
   return (
-    <TaskContext.Provider value={{ reloadoData: HandleReloadoData }}>
+    <TaskContext.Provider value={{ reloadoData: HandleReloadoData, showDelete }}>
       <div className="flex flex-wrap gap-2 justify-center">
         {showAddTask && (
           <Modal title="Crear tarea" close={() => setShowAddTask(false)}>

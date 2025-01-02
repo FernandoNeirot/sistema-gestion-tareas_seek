@@ -5,7 +5,8 @@ import CardModal from "./components/CardModal";
 import CardView from "./components/CardView";
 import Loading from "../loading";
 import { deleteTask } from "@/app/(home)/application/deleteTask";
-import { useTasks } from "@/app/(home)/presentation";
+import { useTasks } from "@/app/(home)/domain/Context.Task";
+
 interface IProps {
   task: ITask;
 }
