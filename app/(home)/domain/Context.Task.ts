@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 
 interface ITaskContext {
   reloadoData: () => void;
+  showDelete: boolean;
 }
 
 export const TaskContext = createContext<ITaskContext | null>(null);

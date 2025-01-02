@@ -74,7 +74,7 @@ export default function HomePageClient() {
   }
 
   return (
-    <TaskContext.Provider value={{ reloadoData: HandleReloadoData }}>
+    <TaskContext.Provider value={{ reloadoData: HandleReloadoData, showDelete }}>
       <div className="flex flex-wrap gap-2 justify-center">
         {showAddTask && (
           <Modal title="Crear tarea" close={() => setShowAddTask(false)}>
