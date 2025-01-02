@@ -1,6 +1,16 @@
 
 ## Proyecto Sistema de Tareas para SEEK
 
+Es un proyecto para la gestion de tareas con un login de acceso. <br>
+Cada usuario podra agregar sus tareas y seran persistidas en firebase. <br>
+cada tarea tendra 4 estas
+ - por hacer
+ - en progreso
+ - completada
+ - eliminada
+las tareas eliminadas podran ser reactivadas. 
+(No se hace eliminacion fisica sino por logica)
+
 ## Levantar proyecto
 
 Clonar repositorio
@@ -33,7 +43,7 @@ npm run dev
 
 ## Sobre el proyecto
 
-Se utilizo una architectura hexagonal, que se divide en 4 capaz.
+Se utilizo una arquitectura hexagonal, que se divide en 4 capas.
 - Presentacion, es la capa con los archivos visuales.
 - Aplicacion, es la capa que conecta la presentacion con la infraestructura.
 La idea de esta capa es hacer alguna manipulacion de logica en los datos recibidos 
@@ -41,8 +51,8 @@ que la capa de presentacion requiera, y evitarle ese procesamiento.
 - Dominio, es la capa central que se alojaran interfaces, funciones, constantes, etc.
 - Infraestructura, es la capa que hace la peticion a un servicio de los datos requeridos.
 
-La autenticacion se hace por medio de una api next, que consulta a firebase y valida si el mismo existe.
-al ser valido el usuario, se hace una llamada al servicio "https://randomuser.me/api?gender=${userData.gender}"
+La autenticacion se hace por medio de una api next, que consulta a firebase y valida si el mismo existe.<br>
+Al ser valido el usuario, se hace una llamada al servicio "https://randomuser.me/api?gender=${userData.gender}"
 para traer datos random de nombre y avatar.
 
 Para la persistencia de datos se utilizo Firebase, para que se pueda probar la aplicaicon con tareas para usuario
