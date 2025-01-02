@@ -21,24 +21,28 @@ const CardView = ({ task, clickEdit, clickDelete }: IProps) => {
         className=" absolute w-full h-full top-0 left-0 "
         onClick={clickEdit}
       />
-      <div className="relative">
-        <h1 className="text-blue-900 border-b-4 font-semibold border-blue-900 mb-2">
+      <div className="relative flex">
+        <h1 className="text-blue-900 w-full border-b-4 font-semibold border-blue-900 mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
           {task.title}
         </h1>
-        <div
-            className={`z-20 absolute top-[-15px] right-[${value?.showDelete ? "-5px" :"40px"}]`}
+        <div className="relative ">
+          <div
+            className={`z-20 absolute top-[-15px] right-[${
+              value?.showDelete ? "-5px" : "40px"
+            }]`}
             onClick={clickEdit}
           >
             <FaRegEdit color="green" size={35} />
           </div>
-        {task.status !== "4 - eliminada" && (
-          <div
-            className="z-20 absolute top-[-15px] right-[-5px]"
-            onClick={clickDelete}
-          >
-            <RiDeleteBin5Line color="red" size={35} />
-          </div>
-        )}
+          {task.status !== "4 - eliminada" && (
+            <div
+              className="z-20 absolute top-[-15px] right-[-5px]"
+              onClick={clickDelete}
+            >
+              <RiDeleteBin5Line color="red" size={35} />
+            </div>
+          )}
+        </div>
       </div>
       <div
         className="flex flex-col justify-between"

@@ -1,38 +1,38 @@
 import { cookies } from "next/headers";
 import { IResponseRandomUserAPI } from "@/app/login/domain/randomuser.interface";
-import { usersMock } from "@/app/shared/mocks";
 import { NextRequest, NextResponse } from "next/server";
+
+import { getLoginFirebase } from "@/app/(home)/application/getLoginFirebase";
 
 export async function POST(request: NextRequest) {
   // Promise<ResponseJwt | ErrorLogin>
   try {
     const req = await request.json();
-    const userData =
-    usersMock.find((u) => u.user === req.user && u.password === req.pass) ??
-    null;
-    if (userData && "gender" in userData) {
+    const usersFirebase = await getLoginFirebase({user: req.user, pass: req.pass});
+    if (usersFirebase && "gender" in usersFirebase) {
       const data: IResponseRandomUserAPI = await fetch(
-        `https://randomuser.me/api?gender=${userData.gender}`,
+        `https://randomuser.me/api?gender=${usersFirebase.gender}`,
         {
           next: {
             revalidate: 30,
           },
         }
       ).then((res) => res.json());
+      console.log(data)
       if ("results" in data) {
-        userData.avatar = data.results[0].picture.medium;
-        userData.name = `${data.results[0].name.first} ${data.results[0].name.last}`;
+        usersFirebase.avatar = data.results[0].picture.medium;
+        usersFirebase.name = `${data.results[0].name.first} ${data.results[0].name.last}`;
       }
     }
     const oneYearFromNow = new Date();
     oneYearFromNow.setHours(oneYearFromNow.getHours() + 4);
-    if (!userData) {
+    if (!usersFirebase) {
       throw new Error('Error de credenciales');
     }
 
     (await cookies()).set({
       name: "__session-seek",
-      value: JSON.stringify(userData),
+      value: JSON.stringify(usersFirebase),
       path: "/",
       secure: true,
       expires: oneYearFromNow,
@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
 
 
 export async function GET() {
-  // Promise<ResponseJwt | ErrorLogin>
   try {
     
     const session = (await cookies()).get("__session-seek")?.value ?? null;

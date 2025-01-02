@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IUser } from "../../_arquitecture/domain/interface";
@@ -7,7 +7,7 @@ import { TbLogout } from "react-icons/tb";
 import { removeCookie } from "../../utils/cookies";
 
 export const Header = () => {
-  const [userData, setUserData] = useState<IUser|null>(null);
+  const [userData, setUserData] = useState<IUser | null>(null);
   const [isAuth, setIsAuth] = useState(false);
 
   const getUserData = async () => {
@@ -18,9 +18,9 @@ export const Header = () => {
     }
   };
 
-  const handleCloseSession = async() => {
+  const handleCloseSession = async () => {
     await removeCookie("__session-seek").then(() => window.location.reload());
-  }
+  };
 
   useEffect(() => {
     getUserData();
@@ -34,7 +34,10 @@ export const Header = () => {
             <h1 className="w-auto">Mis tareas</h1>
             <div className="flex items-center">
               <p>
-                Bienvenid{userData?.gender === "male" ? "o" : "a"}, {userData?.name}
+                {window.screen.width > 500
+                  ? `Bienvenid${userData?.gender === "male" ? "o" : "a"},`
+                  : ""}{" "}
+                {userData?.name}
               </p>
               <Image
                 src={userData?.avatar ?? ""}
@@ -44,7 +47,7 @@ export const Header = () => {
                 height={48}
               />
               <div className="ml-5 cursor-pointer" onClick={handleCloseSession}>
-                <TbLogout size={25}/>
+                <TbLogout size={25} />
               </div>
             </div>
           </div>
