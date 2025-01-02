@@ -97,9 +97,7 @@ export default function HomePageClient() {
             />
           )}
         </div>
-        {dataFilter
-          ?.sort((a: ITask, b: ITask) => a.status.localeCompare(b.status))
-          .map((task: ITask) => (
+        {dataFilter?.map((task: ITask) => (
             <Card task={task} key={task.id} />
           ))}
       </div>
