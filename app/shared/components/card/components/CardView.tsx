@@ -21,11 +21,11 @@ const CardView = ({ task, clickEdit, clickDelete }: IProps) => {
         className=" absolute w-full h-full top-0 left-0 "
         onClick={clickEdit}
       />
-      <div className="relative flex">
-        <h1 className="text-blue-900 w-full border-b-4 font-semibold border-blue-900 mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
+      <div className="relative flex justify-between border-b-4 border-blue-900">
+        <h1 className="text-blue-900 w-full  font-semibold  mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
           {task.title}
         </h1>
-        <div className="relative ">
+        <div className="relative flex mt-1 w-[90px]">
           <div
             className={`z-20 absolute top-[-15px] right-[${
               value?.showDelete ? "-5px" : "40px"
